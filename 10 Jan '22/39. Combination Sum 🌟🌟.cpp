@@ -1,5 +1,9 @@
 // Problem Link: https://leetcode.com/problems/combination-sum/
 //Tags: Backtracking , Subset Sum
+/* Important Leetcode
+discussion links : https://leetcode.com/problems/combination-sum/discuss/16496/Accepted-16ms-c%2B%2B-solution-use-backtracking-easy-understand.
+                   https://leetcode.com/problems/combination-sum/discuss/16502/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partitioning)
+ */                                  
 class Solution {
 public:
     vector<vector<int>> ans;
