@@ -7,6 +7,8 @@ using namespace std;
 -----------------------------------------------
   
   Author : Pulakesh
+            look at the test case and try to make some of your own
+            hint : notice number of k
  
 -----------------------------------------------
 */
