@@ -12,3 +12,24 @@ public:
         return j-i;
     }
 };
+
+//Easy to read and understand
+class Solution {
+public:
+    int longestOnes(vector<int>& nums, int k) {
+        int left=0,right=0,n=nums.size();
+        int zero=0,ans=0;
+        for(; right < n; right++){
+            if(nums[right]==0)
+                zero++;
+            if(zero > k ){
+                if(nums[left]==0)
+                    zero--;    
+                left++;
+            }
+            else
+                ans=max(ans,right-left+1);
+        }
+        return ans;
+    }
+};
