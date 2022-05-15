@@ -13,6 +13,7 @@
 
 /* Solution idea:
                   It is simple DFS implementation clubbed with maxDepth calculation
+                  Better concise Solution below 
 */
 
 class Solution {
@@ -56,6 +57,38 @@ public:
         int height;
         height=max(tree_height(root->right),tree_height(root->left));
         int sum=level(height,root);
+        return sum;
+    }
+};
+
+
+//////////////////////////////////////////////////////////////////////
+
+class Solution {
+public: 
+    int deepestLeavesSum(TreeNode* root) {
+        
+        if(!root) return 0;
+        
+        int sum=0;
+        
+        queue<TreeNode*> q;
+        q.push(root);
+        TreeNode* node;
+        
+        while(q.size()){
+            sum=0;
+            for(int i=q.size()-1;i>=0;i--){
+                
+                node = q.front();
+                q.pop();
+                
+                sum+=node->val;
+                
+                if(node->left)  q.push(node->left);
+                if(node->right) q.push(node->right);
+            }
+        }
         return sum;
     }
 };
