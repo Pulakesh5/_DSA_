@@ -38,7 +38,8 @@ public:
                     ny=y+dy[j];
                     if(possible(nx,ny,n)&&grid[nx][ny]==0&&!visited[nx][ny]){
                         //cout<<nx<<" "<<ny<<'\n';
-                        q.push({nx,ny});visited[nx][ny]=true;
+                        q.push({nx,ny});
+                        visited[nx][ny]=true;//No need for boolean array, just update the given array cell to 1 it would be skipped next time it is visited 
                     } 
                 }
             }
