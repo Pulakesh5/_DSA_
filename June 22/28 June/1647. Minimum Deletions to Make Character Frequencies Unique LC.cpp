@@ -33,3 +33,23 @@ public:
         return ans;
     }
 };
+
+///////////////////////////////////////////////////////////////////////
+
+class Solution {
+public:
+    int minDeletions(string s) {
+        vector<int> count(26,0);
+        for(char ch:s){
+            count[ch-'a']++;
+        }
+        int ans=0;
+        sort(count.begin(), count.end());
+        
+        for(int i=24;i>=0 && count[i]>0;--i){
+            ans += max(0, count[i] - max(0,count[i+1]-1));
+            count[i] = min(count[i],max(0,count[i+1]-1));
+        }
+        return ans;
+    }
+};
