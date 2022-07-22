@@ -33,3 +33,26 @@ public:
         return head;
     }
 };
+
+/*********************************************************************************/
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        if(!head) return head;
+        ListNode* root=head;
+        ListNode greatereq(0),lesser(0);
+        ListNode *g=&greatereq,*l=&lesser;
+        //ListNode *ref;
+        
+        while(root){
+            ListNode* & ref = root->val < x ? l : g;
+            ref->next=root;
+            ref=ref->next;
+            root=root->next;
+        }
+        l->next = greatereq.next;
+        g->next=NULL;
+        return lesser.next;
+        
+    }
+};
