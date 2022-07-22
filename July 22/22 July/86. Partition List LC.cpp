@@ -8,6 +8,7 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+/*********************************************************************************/
 class Solution {
 public:
     ListNode* partition(ListNode* head, int x) {
@@ -53,6 +54,34 @@ public:
         l->next = greatereq.next;
         g->next=NULL;
         return lesser.next;
+        
+    }
+};
+
+/*********************************************************************************/
+
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        if(!head) return head;
+        ListNode* root=head;
+        ListNode *ans,*l= new ListNode(0),*rhead, *r = new ListNode(0);
+        ans=l;
+        rhead=r;
+        while(root){
+            if(root->val<x){
+                l->next = root;
+                l = l->next;
+            }
+            else{
+                r->next = root;
+                r = r->next;
+            }
+            root = root->next;
+        }
+        l->next = rhead->next;
+        r->next = NULL;
+        return ans->next;
         
     }
 };
