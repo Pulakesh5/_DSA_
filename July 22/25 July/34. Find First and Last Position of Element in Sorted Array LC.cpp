@@ -26,3 +26,32 @@ public:
         return {start,end};
     }
 };
+/******************************************************************************************************************/
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int n=nums.size();
+        if(n<1) return {-1,-1};
+        if(n==1){
+            if(nums[0]==target) return {0,0};
+            return {-1,-1};
+        }
+        return binSearch(nums,0,n-1,target);
+    }
+    
+    vector<int> binSearch(vector<int> &nums, int l, int r, int target){
+        if(nums[l]==target && nums[r]==target) 
+            return {l,r};
+        
+        if(nums[l] <= target && target<= nums[r]){
+            int mid=l+((r-l)>>1);
+            vector<int> left = binSearch(nums,l,mid,target);
+            vector<int> right = binSearch(nums,mid+1,r,target);
+            if(left[0]==-1) return right;
+            if(right[0]==-1) return left;
+            return {left[0],right[1]};
+        }
+        
+        return {-1,-1};
+    }
+};
