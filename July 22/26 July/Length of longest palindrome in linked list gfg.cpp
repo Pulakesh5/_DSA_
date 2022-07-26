@@ -26,3 +26,32 @@ int maxPalindrome(Node *head)
     
     return max(oddLength, evenLength);
 }
+/*****************************************************************************/*****************************************************************************/
+
+    int match(vector<int> &vec, int i, int j){
+    int n=vec.size(), count=0;
+    while(i>=0 && j<n && vec[i]==vec[j]){
+        count+=2;
+        i--;
+        j++;
+    }
+    return count;
+}
+int maxPalindrome(Node *head)
+{
+    //Your code here
+    Node *curr=head;
+    vector<int> vec;
+    while(curr){
+        vec.push_back(curr->data);
+        curr=curr->next;
+    }
+    
+    int oddLength=1,evenLength=0,n=vec.size();
+    for(int i=0;i<n;i++){
+        oddLength = max(oddLength,1+match(vec,i-1,i+1));
+        evenLength = max(evenLength,match(vec,i,i+1));
+    }
+    
+    return max(oddLength, evenLength);
+}
