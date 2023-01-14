@@ -1,0 +1,61 @@
+class Solution {
+public:
+    string smallestEquivalentString(string s1, string s2, string baseStr) {
+        vector<vector<int>> adjList(26);
+        int length=s1.size();
+        
+        for(int i=0;i<length;i++)
+        {
+            if(s1[i]==s2[i]) continue;
+
+            adjList[s1[i]-'a'].push_back(s2[i]-'a');
+            adjList[s2[i]-'a'].push_back(s1[i]-'a');
+        }
+
+        // for(int i=0;i<26;i++)
+        // {
+        //     cout<<(char)('a'+i)<<" : ";
+        //     for(int j=0;j<adjList[i].size();j++)
+        //         cout<<(char)(adjList[i][j]+'a')<<" ";
+        //     cout<<endl;
+        // }
+
+
+        map<char,char> mp;
+        vector<int> visited(26,0);
+
+        for(int i=0;i<26;i++)
+        {
+            for(int i=0;i<26;i++) visited[i]=0;
+            char c='a'+i;
+            mp[c]=c;
+
+            visited[i]=1;
+            queue<char> q;
+            q.push(c);
+            //cout<<c<<" : ";
+            while(!q.empty())
+            {
+                char ch = q.front();
+                //cout<<ch<<" ";
+                mp[c]=min(mp[c],ch);
+                q.pop();
+
+                for(int i=0;i<adjList[ch-'a'].size();i++)
+                {
+                    if(visited[adjList[ch-'a'][i]]==1) continue;
+                    
+                    visited[adjList[ch-'a'][i]]=1;
+                    q.push('a'+adjList[ch-'a'][i]);
+                }
+            }
+            // cout<<'\n'<<mp[c]<<endl;
+        }
+
+        length=baseStr.size();
+        for(int i=0;i<length;i++)
+            baseStr[i]=mp[baseStr[i]];
+
+        return baseStr;
+    }
+};
