@@ -1,40 +1,37 @@
 class Solution {
   public:
-    set<vector<int>> St;
-    vector<vector<int>> ans;
-       void helper(int ind , int n, vector<int> arr){
+    set<vector<int>> allPerms;
+    void permute(vector<int> arr, int index)
+    {
+        int n = arr.size();
+        // cout<<"calling with "<<index<<endl;
 
-            if(ind == n){
-         St.insert(arr);
-
-          }else{
-
-          for(int i=ind; i<n; i++){
-
-             swap(arr[ind], arr[i]);
-
-             helper(ind+1, n, arr);
-
-             swap(arr[ind], arr[i]);
-
-          }
-
+        if(index==n)
+        {
+            // for(int i=0; i<n; i++)
+            //     cout<<arr[i]<<" ";
+            // cout<<endl;
+            allPerms.insert(arr);
+            return;
         }
-
-          
-
-      }
-    vector<vector<int>> uniquePerms(vector<int> &arr ,int n){
-
-         helper(0,n,arr);
-
-           for(auto x : St)
-
-        ans.push_back(x);
-
-            return ans;
-
+        for(int i=index; i<n; i++)
+        {
+            if(arr[index]==arr[i])
+            {
+                permute(arr, index+1);
+            }
+            else
+            {
+                swap(arr[index], arr[i]);
+                permute(arr, index+1);
+                swap(arr[index], arr[i]);
+            }
+        }
     }
-
-
+    vector<vector<int>> uniquePerms(vector<int> &arr ,int n) {
+        // code here
+        permute(arr,0);
+        vector<vector<int>> ans(allPerms.begin(), allPerms.end());
+        return ans;
+    }
 };
