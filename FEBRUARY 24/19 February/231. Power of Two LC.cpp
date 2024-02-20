@@ -1,7 +1,14 @@
 class Solution {
 public:
     bool isPowerOfTwo(int n) {
-        cout<<(n&(n-1))<<endl;
-        return !(n&(n-1));
+        if(n==0)
+            return false;
+        while(n)
+        {
+            if(n&1 && n!=1)
+                return false;
+            n = n>>1;
+        }
+        return true;
     }
 };
