@@ -1,17 +1,26 @@
-Node* deleteMid(Node* head)
+class Solution{
+    public:
+    Node* deleteMid(Node* head)
     {
-        if(head == NULL || head->next == NULL){
-            return NULL;
+        // Your Code Here
+        int len = 0;
+        Node* root = head;
+        while(root)
+        {
+            root= root->next;
+            len++;
         }
-        Node* temp = head;
-        unordered_map<int, Node*> mp;
-        int n = 0;
-        while(temp != NULL){
-            n++;
-            mp[n] = temp;
-            temp = temp->next;
+        len = (len/2);
+        Node* prev = nullptr;
+        root = head;
+        while(len--)
+        {
+            prev = root;
+            // cout<<root->data<<endl;
+            root = root->next;
         }
-        n = n/2;
-        mp[n]->next = mp[n+2]; 
+        prev->next = root->next;
         return head;
+  
     }
+};
