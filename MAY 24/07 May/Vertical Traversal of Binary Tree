@@ -1,0 +1,30 @@
+class Solution
+{
+    public:
+    //Function to find the vertical order traversal of Binary Tree.
+    vector<int> verticalOrder(Node *root)
+    {
+        //Your code here
+        map<int, vector<int>> verticals;
+        queue<pair<Node*,int>> q;
+        q.push({root, 0});
+        while(!q.empty())
+        {
+            auto it = q.front();
+            q.pop();
+            verticals[it.second].push_back(it.first->data);
+            if(it.first->left)
+                q.push({it.first->left,it.second-1});
+            if(it.first->right)
+                q.push({it.first->right,it.second+1});
+        }
+        vector<int> verticalTraversal;
+        for(auto it:verticals)
+        {
+            for(auto itr:it.second)
+                verticalTraversal.push_back(itr);
+        }
+        return verticalTraversal;
+        
+    }
+};
