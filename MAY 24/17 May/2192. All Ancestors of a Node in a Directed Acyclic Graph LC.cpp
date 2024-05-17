@@ -1,43 +1,25 @@
 class Solution {
 public:
     vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
-        vector<set<int>> ans(n), adj(n);
-        vector<int> degree(n);
-        
-        for(vector<int> edge:edges)
+        vector<vector<int>> adj(n), ans(n);
+        for(auto &edge:edges)
         {
-            adj[edge[0]].insert(edge[1]);
-            degree[edge[1]]++;
+            adj[edge[0]].push_back(edge[1]);
         }
-        
-        queue<int> q;
         for(int i=0; i<n; i++)
+            DFS(i, i, adj, ans);
+        return ans;
+    }
+private:
+    void DFS(int ancestor, int currNode, vector<vector<int>> &adj, vector<vector<int>> &ans)
+    {
+        for(auto &child:adj[currNode])
         {
-            if(degree[i]==0)
-                q.push(i);
-        }
-        
-        while(!q.empty())
-        {
-            int node = q.front();
-            q.pop();
-            for(auto child:adj[node])
+            if(ans[child].size()==0 || ans[child].back()!=ancestor)
             {
-                for(auto it:ans[node])
-                    ans[child].insert(it);
-                ans[child].insert(node);
-                degree[child]--;
-                if(degree[child]==0)
-                    q.push(child);
+                ans[child].push_back(ancestor);
+                DFS(ancestor, child, adj, ans);
             }
         }
-
-        vector<vector<int>> ancestors(n);
-        for(int i=0; i<n; i++)
-        {
-            for(auto it:ans[i])
-                ancestors[i].push_back(it);
-        } 
-        return ancestors;
     }
 };
