@@ -1,18 +1,22 @@
 class Solution{
   public:
-    int lcs(string s, string t) {
+    int lcs(string s, string t)
+    {
         int n = s.size(), m = t.size();
-        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
-        for (int idx1 = 1; idx1 <= n; idx1++) {
-            for (int idx2 = 1; idx2 <= m; idx2++) {
-                if (s[idx1 - 1] == t[idx2 - 1])
-                    dp[idx1][idx2] = 1 + dp[idx1 - 1][idx2 - 1];
+        vector<vector<int>> dp(n+1, vector<int>(m+1,0));
+        for(int i=1; i<=n; i++)
+        {
+            for(int j=1; j<=m; j++)
+            {
+                if(s[i-1]==t[j-1])
+                    dp[i][j] = 1+dp[i-1][j-1];
                 else
-                    dp[idx1][idx2] = max(dp[idx1 - 1][idx2], dp[idx1][idx2 - 1]);
+                    dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
             }
         }
         return dp[n][m];
     }
+    
     int countMin(string str){
     //complete the function here
         string t = str;
