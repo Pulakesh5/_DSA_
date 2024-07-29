@@ -14,6 +14,7 @@ class Solution {
             }
             if(count>maxCount)
             {
+                maxCount = count;
                 max1Row = i;
             }
         }
