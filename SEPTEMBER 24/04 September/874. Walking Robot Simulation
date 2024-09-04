@@ -1,0 +1,91 @@
+class Solution {
+public:
+    int robotSim(vector<int>& commands, vector<vector<int>>& obstacles) {
+        set<vector<int>> points;
+        
+        for(auto &obstacle:obstacles)
+            points.insert(obstacle);
+        
+        int x = 0, y = 0;
+        int dx = 0, dy = 1;
+        int maxEuclideanDistance = 0, distance;
+
+        int N = obstacles.size();
+        char direction = 'N';
+        for(int cmd:commands)
+        {
+            // cout<<cmd<<" "<<direction<<endl;
+            if(cmd==-1)
+            {
+                switch(direction)
+                {
+                    case 'N':
+                        dx = 1;
+                        dy = 0;
+                        direction = 'E';
+                        break;
+                    case 'S':
+                        dx = -1;
+                        dy = 0;
+                        direction = 'W';
+                        break;
+                    case 'E':
+                        dx = 0;
+                        dy = -1;
+                        direction = 'S';
+                        break;
+                    case 'W':
+                        dx = 0;
+                        dy = 1;
+                        direction = 'N';
+                        break;
+                }
+            }
+            else if(cmd==-2)
+            {
+                switch(direction)
+                {
+                    case 'N':
+                        dx = -1;
+                        dy = 0;
+                        direction = 'W';
+                        break;
+                    case 'S':
+                        dx = 1;
+                        dy = 0;
+                        direction = 'E';
+                        break;
+                    case 'E':
+                        dx = 0;
+                        dy = 1;
+                        direction = 'N';
+                        break;
+                    case 'W':
+                        dx = 0;
+                        dy = -1;
+                        direction = 'S';
+                        break;
+                }
+            }
+            else
+            {
+                vector<int> currPoint = {x, y}, nextPoint;
+                for(int i=1; i<=cmd; i++)
+                {
+                    nextPoint = {currPoint[0] + dx, currPoint[1] + dy};
+                    if(points.find(nextPoint)!=points.end())
+                        break;
+                    currPoint = nextPoint;
+                }
+                x = currPoint[0];
+                y = currPoint[1];
+            }
+            distance = pow(x,2)+pow(y,2);
+            maxEuclideanDistance = max(maxEuclideanDistance, distance);
+            // cout<<direction<<" : "<<x<<", "<<y<<endl;
+        }
+
+        return maxEuclideanDistance;
+
+    }
+};
