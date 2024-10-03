@@ -1,0 +1,32 @@
+auto speedUp = []() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 0;
+}();
+class Solution {
+public:
+    int minSubarray(vector<int>& nums, int p) {
+        long long totalSum = 0;
+        for (int num:nums)
+            totalSum+=num;
+        if (totalSum%p==0)
+            return 0;
+        int remainder = totalSum % p;
+        unordered_map<int, int> lastPos;
+        lastPos[0] = -1;
+        int N = nums.size(), minLen = N;
+        long long sum = 0, prev;
+        for(int i=0; i<N; i++)
+        {
+            sum += nums[i];
+            prev = (p+ (sum%p) - remainder)%p;
+            if(lastPos.find(prev)!=lastPos.end())
+                minLen = min(minLen, i-lastPos[prev]);
+            lastPos[sum%p] = i;
+        }
+        if(minLen==N)   
+            return -1;
+        return minLen;
+    }
+};  
